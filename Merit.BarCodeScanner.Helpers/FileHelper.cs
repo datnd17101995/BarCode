@@ -36,14 +36,14 @@ namespace Merit.BarCodeScanner.Helpers
 
             try
             {
-                if (!string.IsNullOrEmpty(csvLine) && !csvLine.Contains("##")) { }
+                if (!string.IsNullOrEmpty(csvLine) && !csvLine.Contains("#")) { }
                 {
                     if (string.IsNullOrEmpty(csvLine))
                     {
                         dailyValues.RowType = Contains.ItemStatus.BLANK.ToString();
                         return dailyValues;
                     }
-                    if (values.Count() > 0 && values.Count() != 4 && !csvLine.Contains("##"))
+                    if (values.Count() > 0 && values.Count() != 4 && !csvLine.Contains("#"))
                     {
                         dailyValues.RowType = Contains.ItemStatus.FOMATERROR.ToString();
                         return dailyValues;
@@ -90,11 +90,11 @@ namespace Merit.BarCodeScanner.Helpers
             }
             catch (Exception ex)
             {
-                if (values.Count() > 0 && values.Count() != 4 && !csvLine.Contains("##"))
+                if (values.Count() > 0 && values.Count() != 4 && !csvLine.Contains("#"))
                 {
                     dailyValues.RowType = Contains.ItemStatus.FOMATERROR.ToString();
                 } 
-                else if (csvLine.Contains("##"))
+                else if (csvLine.Contains("#"))
                 {
                     dailyValues.RowType = Contains.RowType.ENDBLOCK.ToString();
                 }
@@ -120,7 +120,7 @@ namespace Merit.BarCodeScanner.Helpers
 
             try
             {
-                if (!string.IsNullOrEmpty(csvLine) && !csvLine.Contains("##")) { }
+                if (!string.IsNullOrEmpty(csvLine) && !csvLine.Contains("#")) { }
                 {
                     var date = values[0].TrimStart('"');
                     var time = values[1];
@@ -163,7 +163,7 @@ namespace Merit.BarCodeScanner.Helpers
             }
             catch (Exception ex)
             {
-                if (csvLine.Contains("##"))
+                if (csvLine.Contains("#"))
                 {
                     dailyValues.RowType = Contains.RowType.ENDBLOCK.ToString();
                 }
