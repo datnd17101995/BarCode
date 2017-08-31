@@ -53,6 +53,7 @@
     <Compile Include="BarCodeScannerService.cs" />
     <Compile Include="IBarCodeScannerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShiftServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -14,7 +14,7 @@ namespace Merit.BarCodeScanner.Services
     public class BarCodeScannerService : IBarCodeScannerService
     {
         private ILogger _logService = new FileLogManager(typeof(BarCodeScannerService));
-
+        private readonly ShiftServices _shiftServices = new ShiftServices();
 
         public ResultRespose Import(ImportRequest request, AppSettingsSection _appSettings)
         {
@@ -422,7 +422,8 @@ namespace Merit.BarCodeScanner.Services
             try
             {
                 _logService.LogInfo("start Insert");
-
+                var locationCode = "GFSPLT";
+                List<LocationShift> locationShifts = _shiftServices.GetLocationShift(locationCode);
                 using (var dbContext = new barCodeDbContext())
                 {
                     _logService.LogInfo("Insert");
@@ -472,22 +473,30 @@ namespace Merit.BarCodeScanner.Services
                                 Block bl = new Block();
                                 bl.BlockId = pl.BlockId;
                                 bl.CreatedDate = DateTime.Now;
+                                Func<TimeSpan, TimeSpan, double> GetMedianDiff = (dt1, dt2) =>
+                                {
+                                    if (dt1 < dt2)
+                                    {
+                                        var tmp = dt2;
+                                        dt2 = dt1;
+                                        dt1 = tmp;
+                                    }
+                                    return Math.Min(Math.Abs((dt1 - dt2).TotalMinutes), Math.Abs((dt1 - dt2).TotalMinutes - 24 * 60));
+                                };
+
+                                var locationShiftsStart = locationShifts.Select(x => new Tuple<double, LocationShift>(GetMedianDiff(x.Start.TimeOfDay, barCodeBlock.BlockStartTime.Value.TimeOfDay), x));
+                                var locationShiftsEnd = locationShifts.Select(x => new Tuple<double, LocationShift>(GetMedianDiff(x.End.TimeOfDay, barCodeBlock.BlockStartTime.Value.TimeOfDay), x));
                                 lstBlocks.Add(bl);
                             }
                             dbContext.DeliveryBlocks.Add(barCodeBlock);
                             dbContext.PalletDetails.Add(pl);
                         }
-                        _logService.LogInfo("lstBlocks");
                         foreach (var item in lstBlocks)
                         {
                             dbContext.Blocks.Add(item);
                         }
-                        _logService.LogInfo("Insert Blocks");
-                        //dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Blocks] ON");
                         dbContext.SaveChanges();
-                        _logService.LogInfo("Insert Del");
                         countDelviveBlock = lstBlocks.Count();
-                        //_logService.LogInfo(lstBlocks.Count().ToString());
                     }
                     catch (Exception ex)
                     {
