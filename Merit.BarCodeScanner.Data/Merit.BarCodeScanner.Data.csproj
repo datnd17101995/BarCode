@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201708210726391_Change_Key_Table-Block.Designer.cs">
       <DependentUpon>201708210726391_Change_Key_Table-Block.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708310809576_Add_Table_BlockShift.cs" />
+    <Compile Include="Migrations\201708310809576_Add_Table_BlockShift.Designer.cs">
+      <DependentUpon>201708310809576_Add_Table_BlockShift.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708210726391_Change_Key_Table-Block.resx">
       <DependentUpon>201708210726391_Change_Key_Table-Block.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708310809576_Add_Table_BlockShift.resx">
+      <DependentUpon>201708310809576_Add_Table_BlockShift.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

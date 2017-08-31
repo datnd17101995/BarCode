@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
+    <Compile Include="BlockShift.cs" />
     <Compile Include="CsvValues.cs" />
     <Compile Include="Destination.cs" />
     <Compile Include="EmailContent.cs" />

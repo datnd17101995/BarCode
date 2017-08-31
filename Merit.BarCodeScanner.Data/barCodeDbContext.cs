@@ -16,6 +16,8 @@ namespace Merit.BarCodeScanner.Data
         public virtual DbSet<DeliveryBlock> DeliveryBlocks { get; set; }
                 
         public virtual DbSet<PalletDetail> PalletDetails { get; set; }
+
+        public virtual DbSet<BlockShift> BlockShifts { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
