@@ -27,7 +27,7 @@ namespace Merit.BarCodeScanner.Services
             using (SqlConnection con = new SqlConnection(connectString))
             {
                 con.Open();
-                using (SqlCommand command = new SqlCommand("select l.Id as LocationId,ls.Id as ShiftId from dbo.LocationShift ls join dbo.Location l on ls.LocationId = l.Id where l.LocationCode = '"+ locationCode + "' ", con))
+                using (SqlCommand command = new SqlCommand("select l.Id as LocationId,ls.Id as ShiftId,ls.Start as [Start], ls.[End] as [End] from dbo.LocationShift ls join dbo.Location l on ls.LocationId = l.Id where l.LocationCode = '"+ locationCode + "' ", con))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -38,7 +38,9 @@ namespace Merit.BarCodeScanner.Services
                             LocationsShift.Add(new LocationShift
                             {
                                 LocationId = int.Parse(obj["LocationId"].ToString()),
-                                ShiftId = int.Parse(obj["ShiftId"].ToString())
+                                ShiftId = int.Parse(obj["ShiftId"].ToString()),
+                                Start=DateTime.Parse(obj["Start"].ToString()),
+                                End=DateTime.Parse(obj["End"].ToString())
                             });
                         }
                         return LocationsShift;
