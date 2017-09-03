@@ -3,7 +3,9 @@ namespace Merit.BarCodeScanner.Data.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.IO;
     using System.Linq;
+    using System.Reflection;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Merit.BarCodeScanner.Data.barCodeDbContext>
     {
@@ -26,6 +28,12 @@ namespace Merit.BarCodeScanner.Data.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            var baseDir = Path.GetDirectoryName(path) + "\\Migrations\\LocationShiftSql.sql";
+
+            context.Database.ExecuteSqlCommand(File.ReadAllText(baseDir));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Merit.BarCodeScanner.Models;
+using System.Reflection;
 
 namespace Merit.BarCodeScanner.Data
 {
@@ -18,10 +19,14 @@ namespace Merit.BarCodeScanner.Data
         public virtual DbSet<PalletDetail> PalletDetails { get; set; }
 
         public virtual DbSet<BlockShift> BlockShifts { get; set; }
-        
+
+        public virtual DbSet<LocationShift> LocationShifts { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

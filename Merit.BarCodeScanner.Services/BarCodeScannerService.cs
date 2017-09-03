@@ -423,13 +423,14 @@ namespace Merit.BarCodeScanner.Services
             {
                 _logService.LogInfo("start Insert");
                 var locationCode = "GFSPLT";
-                List<LocationShift> locationShifts = _shiftServices.GetLocationShift(locationCode);
+                
+                //List<LocationShift> locationShifts = _shiftServices.GetLocationShift(locationCode);
                 using (var dbContext = new barCodeDbContext())
                 {
                     _logService.LogInfo("Insert");
                     dbContext.Configuration.AutoDetectChangesEnabled = false;
                     dbContext.Configuration.ValidateOnSaveEnabled = false;
-
+                    List<LocationShift> locationShifts = dbContext.LocationShifts.Where(l=>l.LocationId == 35).ToList();
                     List<Block> lstBlocks = new List<Block>();
                     var oldBlock = new DeliveryBlock();
                     DeliveryBlock barCodeBlock = null;

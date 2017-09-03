@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201708310809576_Add_Table_BlockShift.Designer.cs">
       <DependentUpon>201708310809576_Add_Table_BlockShift.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709030301354_Add_View_LocationShift.cs" />
+    <Compile Include="Migrations\201709030301354_Add_View_LocationShift.Designer.cs">
+      <DependentUpon>201709030301354_Add_View_LocationShift.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,6 +91,14 @@
     <EmbeddedResource Include="Migrations\201708310809576_Add_Table_BlockShift.resx">
       <DependentUpon>201708310809576_Add_Table_BlockShift.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709030301354_Add_View_LocationShift.resx">
+      <DependentUpon>201709030301354_Add_View_LocationShift.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrations\LocationShiftSql.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
