@@ -22,5 +22,44 @@ namespace Merit.BarCodeScanner.Models
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
+
+        public bool SpansDays { get; set; }
+
+        public DateTime GetShiftStartDateTime(DateTime date)
+        {
+            var start = new DateTime(date.Year, date.Month, date.Day, Start.Hour, Start.Minute, Start.Second);
+            return start;
+        }
+
+        public DateTime GetShiftEndDateTime(DateTime date)
+        {
+            var finish = new DateTime(date.Year, date.Month, date.Day, End.Hour, End.Minute, End.Second);
+            if (SpansDays || Start > End)
+            {
+                finish = finish.AddDays(1);
+            }
+
+            return finish;
+        }
+
+        /// <summary>
+        /// Given current shift info returns true if this is a previous day shift relative to timeOfDay provided.
+        /// </summary>
+        /// <param name="timeOfDay"></param>
+        /// <returns></returns>
+        public bool IsPreviousDay(TimeSpan timeOfDay)
+        {
+            return SpansDays && Start.TimeOfDay > timeOfDay;
+        }
+
+        public DateTime DateOfShift(LocationShift shift, DateTime date)
+        {
+            if (shift.IsPreviousDay(date.TimeOfDay))
+            {
+                // this Work Order was created during previous day's shift
+                date = date.AddDays(-1);
+            }
+            return date;
+        }
     }
 }

@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201709030301354_Add_View_LocationShift.Designer.cs">
       <DependentUpon>201709030301354_Add_View_LocationShift.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709120228238_Add_Column_SpansDays_on_View_LocationShifts.cs" />
+    <Compile Include="Migrations\201709120228238_Add_Column_SpansDays_on_View_LocationShifts.Designer.cs">
+      <DependentUpon>201709120228238_Add_Column_SpansDays_on_View_LocationShifts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709030301354_Add_View_LocationShift.resx">
       <DependentUpon>201709030301354_Add_View_LocationShift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709120228238_Add_Column_SpansDays_on_View_LocationShifts.resx">
+      <DependentUpon>201709120228238_Add_Column_SpansDays_on_View_LocationShifts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
