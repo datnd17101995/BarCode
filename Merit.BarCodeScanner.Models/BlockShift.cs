@@ -13,5 +13,7 @@ namespace Merit.BarCodeScanner.Models
         public Guid BlockId { get; set; }
 
         public int ShiftId { get; set; }
+
+        public DateTime DateOfShift { get; set; }
     }
 }

@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201709120228238_Add_Column_SpansDays_on_View_LocationShifts.Designer.cs">
       <DependentUpon>201709120228238_Add_Column_SpansDays_on_View_LocationShifts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709180252295_Add_Column_DateOfShift_On_Table_BlockShift.cs" />
+    <Compile Include="Migrations\201709180252295_Add_Column_DateOfShift_On_Table_BlockShift.Designer.cs">
+      <DependentUpon>201709180252295_Add_Column_DateOfShift_On_Table_BlockShift.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709120228238_Add_Column_SpansDays_on_View_LocationShifts.resx">
       <DependentUpon>201709120228238_Add_Column_SpansDays_on_View_LocationShifts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709180252295_Add_Column_DateOfShift_On_Table_BlockShift.resx">
+      <DependentUpon>201709180252295_Add_Column_DateOfShift_On_Table_BlockShift.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

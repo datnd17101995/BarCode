@@ -58,6 +58,7 @@
     <Compile Include="ImportRequest.cs" />
     <Compile Include="DeliveryBlock.cs" />
     <Compile Include="LocationShift.cs" />
+    <Compile Include="LocationShiftProjection.cs" />
     <Compile Include="PalletDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultRespose.cs" />

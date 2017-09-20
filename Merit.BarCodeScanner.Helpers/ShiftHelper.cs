@@ -16,7 +16,7 @@ namespace Merit.BarCodeScanner.Helpers
             //dbContext = new barCodeDbContext();
         }
 
-        public static LocationShift GetShift(barCodeDbContext dbContext,DeliveryBlock block)
+        public static LocationShiftProjection GetShift(barCodeDbContext dbContext, DeliveryBlock block)
         {
             List<LocationShift> locationShifts = dbContext.LocationShifts.Where(l => l.LocationId == 35).ToList();
             Func<TimeSpan, TimeSpan, double> GetMedianDiff = (dt1, dt2) =>
@@ -31,10 +31,33 @@ namespace Merit.BarCodeScanner.Helpers
             };
             var locationShiftsStart = locationShifts.Select(x => new Tuple<double, LocationShift>(GetMedianDiff(x.Start.TimeOfDay, block.BlockStartTime.Value.TimeOfDay), x));
             var locationShiftsEnd = locationShifts.Select(x => new Tuple<double, LocationShift>(GetMedianDiff(x.End.TimeOfDay, block.BlockStartTime.Value.TimeOfDay), x));
-            var shift = locationShiftsStart
+            var shift = FindShiftForLocation(block.BlockStartTime.Value, locationShifts) ??
+                        locationShiftsStart
                         .Union(locationShiftsEnd)
                         .OrderBy(x => x.Item1).Select(x => x.Item2).FirstOrDefault();
-            return shift;
+            var dateOfShift = block.BlockStartTime.Value;
+            if (shift.IsPreviousDay(block.BlockStartTime.Value.TimeOfDay))
+            {
+                dateOfShift=dateOfShift.AddDays(-1);
+            }
+            return new LocationShiftProjection
+            {
+                LocationId = shift.LocationId,
+                ShiftId = shift.ShiftId,
+                Start = shift.Start,
+                End = shift.End,
+                SpansDays = shift.SpansDays,
+                DateOfShift = dateOfShift
+            };
+        }
+
+        public static LocationShift FindShiftForLocation(DateTime localCreateTime, List<LocationShift> locationShifts)
+        {
+            var result = locationShifts.FirstOrDefault(s =>
+                    TimeSpan.Compare(s.Start.TimeOfDay, s.End.TimeOfDay) <= 0
+                    ? TimeSpan.Compare(localCreateTime.TimeOfDay, s.Start.TimeOfDay) >= 0 && TimeSpan.Compare(localCreateTime.TimeOfDay, s.End.TimeOfDay) <= 0
+                    : TimeSpan.Compare(localCreateTime.TimeOfDay, s.Start.TimeOfDay) >= 0 || TimeSpan.Compare(localCreateTime.TimeOfDay, s.End.TimeOfDay) <= 0);
+            return result;
         }
     }
 }

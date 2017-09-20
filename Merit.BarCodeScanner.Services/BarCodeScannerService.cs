@@ -473,13 +473,14 @@ namespace Merit.BarCodeScanner.Services
                                 bl.BlockId = pl.BlockId;
                                 bl.CreatedDate = DateTime.Now;                                
                                 var shift = ShiftHelper.GetShift(dbContext, barCodeBlock);
-                                var date1 = shift.DateOfShift(shift, barCodeBlock.BlockStartTime.Value);
+                                
                                 if (shift != null)
                                 {
                                     BlockShift blockShift = new BlockShift()
                                     {
                                         BlockId = bl.BlockId,
-                                        ShiftId = shift.ShiftId
+                                        ShiftId = shift.ShiftId,
+                                        DateOfShift = shift.DateOfShift.Value.Date
                                     };
                                     dbContext.BlockShifts.Add(blockShift);
                                 }
